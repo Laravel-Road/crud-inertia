@@ -3191,6 +3191,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -31456,6 +31464,21 @@ var render = function() {
                               "\n                                Dashboard\n                            "
                             )
                           ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "jet-nav-link",
+                          {
+                            attrs: {
+                              href: _vm.route("contacts.index"),
+                              active: _vm.route().current("contacts.index")
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Contacts\n                            "
+                            )
+                          ]
                         )
                       ],
                       1
@@ -31990,6 +32013,21 @@ var render = function() {
                       [
                         _vm._v(
                           "\n                        Dashboard\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "jet-responsive-nav-link",
+                      {
+                        attrs: {
+                          href: _vm.route("contacts.index"),
+                          active: _vm.route().current("contacts.index")
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Contacts\n                    "
                         )
                       ]
                     )
