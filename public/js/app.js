@@ -4304,6 +4304,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4334,7 +4359,9 @@ __webpack_require__.r(__webpack_exports__);
         phone: this.contact.phone,
         message: this.contact.message
       }),
-      updating: false
+      updating: false,
+      destroyForm: this.$inertia.form(),
+      destroying: false
     };
   },
   methods: {
@@ -4346,6 +4373,19 @@ __webpack_require__.r(__webpack_exports__);
         preserveScroll: true,
         onSuccess: function onSuccess() {
           _this.updating = false;
+        }
+      });
+    },
+    destroy: function destroy() {
+      var _this2 = this;
+
+      this.destroyForm["delete"](route('contacts.destroy', this.contact), {
+        errorBag: 'default',
+        preserveScroll: true,
+        onSuccess: function onSuccess() {
+          _this2.destroying = false;
+
+          _this2.destroyForm.reset();
         }
       });
     }
@@ -34760,6 +34800,20 @@ var render = function() {
         [_vm._v("\n        Edit\n    ")]
       ),
       _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "cursor-pointer ml-6 text-sm text-red-500 focus:outline-none",
+          on: {
+            click: function($event) {
+              _vm.destroying = true
+            }
+          }
+        },
+        [_vm._v("\n        Delete\n    ")]
+      ),
+      _vm._v(" "),
       _c("jet-dialog-modal", {
         attrs: { show: _vm.updating },
         on: {
@@ -34939,6 +34993,69 @@ var render = function() {
                     }
                   },
                   [_vm._v("\n                Save\n            ")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c("jet-confirmation-modal", {
+        attrs: { show: _vm.destroying },
+        on: {
+          close: function($event) {
+            _vm.destroying = false
+          }
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "title",
+            fn: function() {
+              return [_vm._v("\n            Delete Contact\n        ")]
+            },
+            proxy: true
+          },
+          {
+            key: "content",
+            fn: function() {
+              return [
+                _vm._v(
+                  "\n            Are you sure you would like to delete this Contact?\n        "
+                )
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "footer",
+            fn: function() {
+              return [
+                _c(
+                  "jet-secondary-button",
+                  {
+                    nativeOn: {
+                      click: function($event) {
+                        _vm.destroying = false
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Nevermind\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "jet-danger-button",
+                  {
+                    staticClass: "ml-2",
+                    class: { "opacity-25": _vm.destroyForm.processing },
+                    attrs: { disabled: _vm.destroyForm.processing },
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.destroy($event)
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Delete Contact\n            ")]
                 )
               ]
             },

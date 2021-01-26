@@ -30,4 +30,19 @@ class ContactItemTest extends TestCase
 
         $this->assertDatabaseHas('contacts', $contactFake->getAttributes());
     }
+
+    /**
+     * @test
+     */
+    public function canDestroyContact()
+    {
+        $user = User::factory()->withPersonalTeam()->create();
+        $contact = Contact::factory()->create();
+
+        $this->actingAs($user)
+            ->delete(route('contacts.destroy', $contact))
+            ->assertStatus(303);
+
+        $this->assertDatabaseMissing('contacts', $contact->getAttributes());
+    }
 }

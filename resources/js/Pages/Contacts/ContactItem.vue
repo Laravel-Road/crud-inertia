@@ -6,6 +6,11 @@
             Edit
         </button>
 
+        <button class="cursor-pointer ml-6 text-sm text-red-500 focus:outline-none"
+                @click="destroying = true">
+            Delete
+        </button>
+
         <jet-dialog-modal :show="updating" @close="updating = false">
             <template #title>
                 Update Contact
@@ -47,6 +52,26 @@
             </template>
         </jet-dialog-modal>
 
+        <jet-confirmation-modal :show="destroying" @close="destroying = false">
+            <template #title>
+                Delete Contact
+            </template>
+
+            <template #content>
+                Are you sure you would like to delete this Contact?
+            </template>
+
+            <template #footer>
+                <jet-secondary-button @click.native="destroying = false">
+                    Nevermind
+                </jet-secondary-button>
+
+                <jet-danger-button class="ml-2" @click.native="destroy" :class="{ 'opacity-25': destroyForm.processing }" :disabled="destroyForm.processing">
+                    Delete Contact
+                </jet-danger-button>
+            </template>
+        </jet-confirmation-modal>
+
     </div>
 </template>
 
@@ -87,6 +112,9 @@
                     message: this.contact.message,
                 }),
                 updating: false,
+
+                destroyForm: this.$inertia.form(),
+                destroying: false,
             }
         },
 
@@ -97,6 +125,17 @@
                     preserveScroll: true,
                     onSuccess: () => {
                         this.updating = false
+                    }
+                });
+            },
+
+            destroy() {
+                this.destroyForm.delete(route('contacts.destroy', this.contact), {
+                    errorBag: 'default',
+                    preserveScroll: true,
+                    onSuccess: () => {
+                        this.destroying = false
+                        this.destroyForm.reset()
                     }
                 });
             },
