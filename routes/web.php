@@ -27,7 +27,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', fn()  => Inertia::render('Dashboard'))->name('dashboard');
-    Route::apiResource('contatos', ContactController::class)->except(['show']);
+    Route::apiResource('contacts', ContactController::class)->except(['show']);
 });
 
 
