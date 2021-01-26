@@ -17,6 +17,7 @@
                         <div class="flex items-start justify-betweenr">
                             <div class="w-64">{{ contact.name }}</div>
                             <div class="w-64">{{ contact.email }}</div>
+                            <contact-item :contact="contact"/>
                         </div>
                     </div>
                     <pagination :links="contacts.links" />
@@ -27,15 +28,17 @@
 </template>
 
 <script>
+    import ContactItem from './ContactItem'
     import JetActionSection from '@/Jetstream/ActionSection'
     import JetSectionBorder from '@/Jetstream/SectionBorder'
     import Pagination from '@/Shared/Pagination'
 
     export default {
         components: {
-            Pagination,
+            ContactItem,
             JetActionSection,
             JetSectionBorder,
+            Pagination,
         },
 
         props: [
