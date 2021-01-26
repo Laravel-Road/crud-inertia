@@ -20,7 +20,9 @@ class ContactUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $contact = $this->route('contact');
+
+        return $this->user()->can('update', $contact);
     }
 
     /**
